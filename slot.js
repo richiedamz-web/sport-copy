@@ -16,14 +16,14 @@ var symbols = [
   "images/jesuisassezsportif.jpg",
   "images/jesuisassezsportive.jpg",
   "images/jesuistressportive.jpg",
-  "images/jesuistressportif.jpg"
-  "images/petanque.jpg"
-  "images/pingpong.jpg"
-  "images/rugby.jpg"
-  "images/tennis.jpg"
-  "images/tuessportif.jpg"
-  "images/tuessportive.jpg"
-  "images/volleyball.jpg"
+  "images/jesuistressportif.jpg",
+  "images/petanque.jpg",
+  "images/pingpong.jpg",
+  "images/rugby.jpg",
+  "images/tennis.jpg",
+  "images/tuessportif.jpg",
+  "images/tuessportive.jpg",
+  "images/volleyball.jpg",
   "images/wii.jpg"
 ];
 
@@ -105,5 +105,6 @@ function spin() {
 
 // Run on page load
 window.addEventListener("DOMContentLoaded", initializeReels);
+
 
 
