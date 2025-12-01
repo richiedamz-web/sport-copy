@@ -4,27 +4,27 @@ function getCacheBustedUrl(url) {
 
 // Symbol list (use the actual filenames of your new sharp images)
 var symbols = [
-  "images/amis.jpg?v=2",
-  "images/basket.jpg?v=2",
-  "images/billiards.jpg?v=2",
-  "images/boules.jpg?v=2",
-  "images/foot.jpg?v=2",
-  "images/hockey.jpg?v=2",
-  "images/jadorelesport.jpg?v=2",
-  "images/jenesuispassportif.jpg?v=2",
-  "images/jenesuispassportive.jpg?v=2",
-  "images/jesuisassezsportif.jpg?v=2",
-  "images/jesuisassezsportive.jpg?v=2",
-  "images/jesuistressportive.jpg?v=2",
-  "images/jesuistressportif.jpg?v=2"
-  "images/petanque.jpg?v=2"
-  "images/pingpong.jpg?v=2"
-  "images/rugby.jpg?v=2"
-  "images/tennis.jpg?v=2"
-  "images/tuessportif.jpg?v=2"
-  "images/tuessportive.jpg?v=2"
-  "images/volleyball.jpg?v=2"
-  "images/wii.jpg?v=2"
+  "images/amis.jpg",
+  "images/basket.jpg",
+  "images/billiards.jpg",
+  "images/boules.jpg",
+  "images/foot.jpg",
+  "images/hockey.jpg",
+  "images/jadorelesport.jpg",
+  "images/jenesuispassportif.jpg",
+  "images/jenesuispassportive.jpg",
+  "images/jesuisassezsportif.jpg",
+  "images/jesuisassezsportive.jpg",
+  "images/jesuistressportive.jpg",
+  "images/jesuistressportif.jpg"
+  "images/petanque.jpg"
+  "images/pingpong.jpg"
+  "images/rugby.jpg"
+  "images/tennis.jpg"
+  "images/tuessportif.jpg"
+  "images/tuessportive.jpg"
+  "images/volleyball.jpg"
+  "images/wii.jpg"
 ];
 
 // Initialize reels on page load
@@ -105,4 +105,5 @@ function spin() {
 
 // Run on page load
 window.addEventListener("DOMContentLoaded", initializeReels);
+
 
