@@ -4,6 +4,7 @@ function getCacheBustedUrl(url) {
 
 // Symbol list (use the actual filenames of your new sharp images)
 var symbols = [
+  "images/amies.jpg",
   "images/amis.jpg",
   "images/basket.jpg",
   "images/billiards.jpg",
@@ -105,6 +106,7 @@ function spin() {
 
 // Run on page load
 window.addEventListener("DOMContentLoaded", initializeReels);
+
 
 
 
