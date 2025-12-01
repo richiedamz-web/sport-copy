@@ -4,18 +4,27 @@ function getCacheBustedUrl(url) {
 
 // Symbol list (use the actual filenames of your new sharp images)
 var symbols = [
-  "images/animationnew2.jpg",
-  "images/jejouenew.jpg",
-  "images/jecodenew2.png",
-  "images/jenvoieemails.jpg",
-  "images/jenvoiesms.jpg",
-  "images/jeparleamiesnew2.jpg",
-  "images/jeparleamis.jpg",
-  "images/jeregardenew2.jpg",
-  "images/jesurfenew2.jpg",
-  "images/jetchattenew2.png",
-  "images/jetelecharge.jpg",
-  "images/programmation.jpg"
+  "images/amis.jpg?v=2",
+  "images/basket.jpg?v=2",
+  "images/billiards.jpg?v=2",
+  "images/boules.jpg?v=2",
+  "images/foot.jpg?v=2",
+  "images/hockey.jpg?v=2",
+  "images/jadorelesport.jpg?v=2",
+  "images/jenesuispassportif.jpg?v=2",
+  "images/jenesuispassportive.jpg?v=2",
+  "images/jesuisassezsportif.jpg?v=2",
+  "images/jesuisassezsportive.jpg?v=2",
+  "images/jesuistressportive.jpg?v=2",
+  "images/jesuistressportif.jpg?v=2"
+  "images/petanque.jpg?v=2"
+  "images/pingpong.jpg?v=2"
+  "images/rugby.jpg?v=2"
+  "images/tennis.jpg?v=2"
+  "images/tuessportif.jpg?v=2"
+  "images/tuessportive.jpg?v=2"
+  "images/volleyball.jpg?v=2"
+  "images/wii.jpg?v=2"
 ];
 
 // Initialize reels on page load
@@ -96,3 +105,4 @@ function spin() {
 
 // Run on page load
 window.addEventListener("DOMContentLoaded", initializeReels);
+
