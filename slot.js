@@ -3,32 +3,14 @@ function getCacheBustedUrl(url) {
 }
 
 // Symbol list (use the actual filenames of your new sharp images)
-const images = [
-  "amies.jpg",
-  "amis.jpg",
-  "basket.jpg",
-  "billiards.jpg",
-  "boules.jpg",
-  "foot.jpg",
-  "hockey.jpg",
-  "jadorelesport.jpg",
-  "jenesuispassportif.jpg",
-  "jenesuispassportive.jpg",
-  "jesuisassezsportif.jpg",
-  "jesuisassezsportive.jpg",
-  "jesuistressportif.jpg",
-  "jesuistressportive.jpg",
-  "petanque.jpg",
-  "pingpong.jpg",
-  "rugby.jpg",
-  "tennis.jpg",
-  "volleyball.jpg",
-  "wii.jpg",
-  "tuessportif.jpg",
-  "tuessportive.jpg"
-];
+const images = ["amies.jpg", "amis.jpg", "basket.jpg", "billiards.jpg", 
+                "boules.jpg", "foot.jpg", "hockey.jpg", "jadorelesport.jpg",
+                "jenesuispassportif.jpg", "jenesuispassportive.jpg",
+                "jesuisassezsportif.jpg", "jesuisassezsportive.jpg",
+                "jesuistressportif.jpg", "jesuistressportive.jpg",
+                "petanque.jpg", "pingpong.jpg", "rugby.jpg", "tennis.jpg",
+                "volleyball.jpg", "wii.jpg", "tuessportif.jpg", "tuessportive.jpg"];
 
-// Then your spin function picks random images for each reel
 const reels = [
   document.getElementById("reel1"),
   document.getElementById("reel2"),
@@ -36,6 +18,13 @@ const reels = [
   document.getElementById("reel4"),
   document.getElementById("reel5")
 ];
+
+const spinBtn = document.getElementById("spinBtn");
+
+// Enable button after page loads
+window.addEventListener('load', () => {
+  spinBtn.disabled = false;
+});
 
 function spinReels() {
   reels.forEach(reel => {
@@ -122,6 +111,7 @@ function spin() {
 
 // Run on page load
 window.addEventListener("DOMContentLoaded", initializeReels);
+
 
 
 
