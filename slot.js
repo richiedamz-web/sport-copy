@@ -2,7 +2,7 @@ function getCacheBustedUrl(url) {
   return url + "?v=" + new Date().getTime();
 }
 
-// All images inside 'images/' folder
+// All images in your 'images/' folder
 const images = [
   "images/amies.jpg","images/amis.jpg","images/basket.jpg","images/billiards.jpg",
   "images/boules.jpg","images/foot.jpg","images/hockey.jpg","images/jadorelesport.jpg",
@@ -25,6 +25,7 @@ const reels = [
 const spinBtn = document.getElementById("spinBtn");
 const result = document.getElementById("result");
 
+// Enable button and initialize reels on page load
 window.addEventListener("DOMContentLoaded", () => {
   spinBtn.disabled = false;
   initializeReels();
@@ -43,20 +44,29 @@ function spinReels() {
   result.textContent = "Ça tourne!... 🎰";
 
   reels.forEach((reel, i) => {
-    const duration = 1500 + i * 400; // staggered spin
+    reel.classList.add("spinning"); // add spinning class
+
+    const duration = 1500 + i * 400; // staggered stop times
     const start = performance.now();
 
     function animate(now) {
       const elapsed = now - start;
-      const rand = Math.floor(Math.random() * images.length);
-      reel.src = getCacheBustedUrl(images[rand]);
+
+      // Swap images fast to simulate spinning
+      if (elapsed % 50 < 16) {
+        const rand = Math.floor(Math.random() * images.length);
+        reel.src = getCacheBustedUrl(images[rand]);
+      }
 
       if (elapsed < duration) {
         requestAnimationFrame(animate);
       } else {
+        // Stop reel
         const finalIndex = Math.floor(Math.random() * images.length);
         reel.src = getCacheBustedUrl(images[finalIndex]);
+        reel.classList.remove("spinning");
 
+        // Enable button after last reel stops
         if (i === reels.length - 1) {
           spinBtn.disabled = false;
           result.textContent = "Voici tes images!";
@@ -69,4 +79,7 @@ function spinReels() {
 }
 
 spinBtn.addEventListener("click", spinReels);
+
+spinBtn.addEventListener("click", spinReels);
+
 
