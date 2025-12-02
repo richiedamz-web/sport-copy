@@ -11,7 +11,8 @@
   margin: 5px;
   border: 2px solid #333;
   border-radius: 8px;
-  object-fit: cover;
+  object-fit: contain; /* show the full image inside the box */
+  background-color: white; /* optional, to keep a white border */
 }
 
 #result {
@@ -51,3 +52,4 @@
   100% { transform: scaleY(1); }
 }
 }
+
