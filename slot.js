@@ -1,10 +1,33 @@
-// Images, reels, spin button
-const images = [...]; // your array
-const reels = [...]; 
+// Cache-busting helper
+function getCacheBustedUrl(url) {
+  return url + "?v=" + new Date().getTime();
+}
+
+// All images in your 'images/' folder
+const images = [
+  "images/amies.jpg","images/amis.jpg","images/basket.jpg","images/billiards.jpg",
+  "images/boules.jpg","images/foot.jpg","images/hockey.jpg","images/jadorelesport.jpg",
+  "images/jenesuispassportif.jpg","images/jenesuispassportive.jpg",
+  "images/jesuisassezsportif.jpg","images/jesuisassezsportive.jpg",
+  "images/jesuistressportif.jpg","images/jesuistressportive.jpg",
+  "images/petanque.jpg","images/pingpong.jpg","images/rugby.jpg",
+  "images/tennis.jpg","images/volleyball.jpg","images/wii.jpg",
+  "images/tuessportif.jpg","images/tuessportive.jpg"
+];
+
+// Grab the reel <img> elements
+const reels = [
+  document.getElementById("reel1"),
+  document.getElementById("reel2"),
+  document.getElementById("reel3"),
+  document.getElementById("reel4"),
+  document.getElementById("reel5")
+];
+
 const spinBtn = document.getElementById("spinBtn");
 const result = document.getElementById("result");
 
-// Initialize reels
+// Initialize reels on page load
 window.addEventListener("DOMContentLoaded", () => {
   spinBtn.disabled = false;
   initializeReels();
@@ -18,7 +41,7 @@ function initializeReels() {
   result.textContent = "Cliquez sur 'Spin' pour commencer!";
 }
 
-// This is the only spin function
+// Spin function with visible animation
 function spinReels() {
   spinBtn.disabled = true;
   result.textContent = "Ça tourne!... 🎰";
@@ -26,17 +49,17 @@ function spinReels() {
   reels.forEach((reel, i) => {
     reel.classList.add("spinning"); // start wobble
 
-    const duration = 1500 + i * 400;
+    const duration = 1500 + i * 400; // staggered stop
     const start = performance.now();
 
     function animate(now) {
       const elapsed = now - start;
 
-      // Vertical motion to simulate spinning
+      // Vertical motion for spinning illusion
       const offset = Math.sin(elapsed / 50 * Math.PI) * 20; // ±20px
       reel.style.transform = `translateY(${offset}px)`;
 
-      // Swap images rapidly
+      // Rapid image swapping
       if (elapsed % 50 < 16) {
         const rand = Math.floor(Math.random() * images.length);
         reel.src = getCacheBustedUrl(images[rand]);
@@ -65,4 +88,3 @@ function spinReels() {
 
 // Only one event listener
 spinBtn.addEventListener("click", spinReels);
-
