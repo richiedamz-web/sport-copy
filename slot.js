@@ -1,9 +1,3 @@
-// Cache-busting helper
-function getCacheBustedUrl(url) {
-  return url + "?v=" + new Date().getTime();
-}
-
-// All images in your 'images/' folder
 const images = [
   "images/amies.jpg","images/amis.jpg","images/basket.jpg","images/billiards.jpg",
   "images/boules.jpg","images/foot.jpg","images/hockey.jpg","images/jadorelesport.jpg",
@@ -15,7 +9,6 @@ const images = [
   "images/tuessportif.jpg","images/tuessportive.jpg"
 ];
 
-// Grab the reel <img> elements
 const reels = [
   document.getElementById("reel1"),
   document.getElementById("reel2"),
@@ -27,54 +20,44 @@ const reels = [
 const spinBtn = document.getElementById("spinBtn");
 const result = document.getElementById("result");
 
-// Initialize reels on page load
-window.addEventListener("DOMContentLoaded", () => {
-  spinBtn.disabled = false;
-  initializeReels();
-});
-
+// Initialize reels with stacked images
 function initializeReels() {
   reels.forEach(reel => {
-    const rand = Math.floor(Math.random() * images.length);
-    reel.src = getCacheBustedUrl(images[rand]);
+    reel.innerHTML = "";
+    images.forEach(src => {
+      const img = document.createElement("img");
+      img.src = src;
+      reel.appendChild(img);
+    });
   });
   result.textContent = "Cliquez sur 'Spin' pour commencer!";
 }
 
-// Spin function with visible animation
+// Spin function
 function spinReels() {
   spinBtn.disabled = true;
   result.textContent = "Ça tourne!... 🎰";
 
   reels.forEach((reel, i) => {
-    reel.classList.add("spinning"); // start wobble
-
-    const duration = 1500 + i * 400; // staggered stop
-    const start = performance.now();
+    const totalHeight = reel.scrollHeight;
+    const duration = 2000 + i * 400; // staggered stop
+    const startTime = performance.now();
+    const startTop = 0;
+    const endTop = -(totalHeight - 100); // stop at bottom
 
     function animate(now) {
-      const elapsed = now - start;
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out for realistic stop
+      const ease = 1 - Math.pow(1 - progress, 3);
 
-      // Vertical motion for spinning illusion
-      const offset = Math.sin(elapsed / 50 * Math.PI) * 20; // ±20px
-      reel.style.transform = `translateY(${offset}px)`;
+      reel.style.transform = `translateY(${startTop + ease * endTop}px)`;
 
-      // Rapid image swapping
-      if (elapsed % 50 < 16) {
-        const rand = Math.floor(Math.random() * images.length);
-        reel.src = getCacheBustedUrl(images[rand]);
-      }
-
-      if (elapsed < duration) {
+      if (progress < 1) {
         requestAnimationFrame(animate);
       } else {
-        // Stop reel
-        const finalIndex = Math.floor(Math.random() * images.length);
-        reel.src = getCacheBustedUrl(images[finalIndex]);
-        reel.style.transform = ""; // reset
-        reel.classList.remove("spinning");
-
-        // Enable button after last reel
+        // Reset position for next spin
+        reel.style.transform = `translateY(0px)`;
         if (i === reels.length - 1) {
           spinBtn.disabled = false;
           result.textContent = "Voici tes images!";
@@ -86,5 +69,5 @@ function spinReels() {
   });
 }
 
-// Only one event listener
 spinBtn.addEventListener("click", spinReels);
+window.addEventListener("DOMContentLoaded", initializeReels);
