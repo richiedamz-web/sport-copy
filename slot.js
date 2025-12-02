@@ -3,30 +3,46 @@ function getCacheBustedUrl(url) {
 }
 
 // Symbol list (use the actual filenames of your new sharp images)
-var symbols = [
-  "images/amies.jpg",
-  "images/amis.jpg",
-  "images/basket.jpg",
-  "images/billiards.jpg",
-  "images/boules.jpg",
-  "images/foot.jpg",
-  "images/hockey.jpg",
-  "images/jadorelesport.jpg",
-  "images/jenesuispassportif.jpg",
-  "images/jenesuispassportive.jpg",
-  "images/jesuisassezsportif.jpg",
-  "images/jesuisassezsportive.jpg",
-  "images/jesuistressportive.jpg",
-  "images/jesuistressportif.jpg",
-  "images/petanque.jpg",
-  "images/pingpong.jpg",
-  "images/rugby.jpg",
-  "images/tennis.jpg",
-  "images/tuessportif.jpg",
-  "images/tuessportive.jpg",
-  "images/volleyball.jpg",
-  "images/wii.jpg"
+const images = [
+  "amies.jpg",
+  "amis.jpg",
+  "basket.jpg",
+  "billiards.jpg",
+  "boules.jpg",
+  "foot.jpg",
+  "hockey.jpg",
+  "jadorelesport.jpg",
+  "jenesuispassportif.jpg",
+  "jenesuispassportive.jpg",
+  "jesuisassezsportif.jpg",
+  "jesuisassezsportive.jpg",
+  "jesuistressportif.jpg",
+  "jesuistressportive.jpg",
+  "petanque.jpg",
+  "pingpong.jpg",
+  "rugby.jpg",
+  "tennis.jpg",
+  "volleyball.jpg",
+  "wii.jpg",
+  "tuessportif.jpg",
+  "tuessportive.jpg"
 ];
+
+// Then your spin function picks random images for each reel
+const reels = [
+  document.getElementById("reel1"),
+  document.getElementById("reel2"),
+  document.getElementById("reel3"),
+  document.getElementById("reel4"),
+  document.getElementById("reel5")
+];
+
+function spinReels() {
+  reels.forEach(reel => {
+    const randIndex = Math.floor(Math.random() * images.length);
+    reel.src = images[randIndex];
+  });
+}
 
 // Initialize reels on page load
 function initializeReels() {
@@ -106,6 +122,7 @@ function spin() {
 
 // Run on page load
 window.addEventListener("DOMContentLoaded", initializeReels);
+
 
 
 
