@@ -40,34 +40,41 @@ document.addEventListener("DOMContentLoaded", () => {
     result.textContent = "Cliquez sur 'Spin' pour commencer!";
   }
 
-  // Spin animation with smooth scroll illusion
+  // Spin function with unique final images
   function spinReels() {
     spinBtn.disabled = true;
     result.textContent = "Ça tourne!... 🎰";
 
+    // Copy of images to ensure unique final images
+    let availableImages = images.slice();
+
     reels.forEach((reel, i) => {
       const singleHeight = 100;
       const totalHeight = reel.scrollHeight;
-      const finalIndex = Math.floor(Math.random() * images.length);
       const startTime = performance.now();
       const duration = 2000 + i * 400; // staggered stop
+
+      // Pick a unique final image
+      const finalIndex = Math.floor(Math.random() * availableImages.length);
+      const finalImage = availableImages.splice(finalIndex, 1)[0];
 
       reel.classList.add("spinning");
 
       function animate(now) {
         const elapsed = now - startTime;
         const progress = Math.min(elapsed / duration, 1);
-       // Quick start, smooth stop
-            const ease = progress < 0.3 
-             ? 3 * Math.pow(progress, 2)       // faster initial surge
-             : 1 - Math.pow(1 - progress, 3); // smooth deceleration
 
-        // Smooth scrolling effect
+        // Slightly faster start, smooth stop
+        const ease = progress < 0.3 
+                     ? 3 * Math.pow(progress, 2) 
+                     : 1 - Math.pow(1 - progress, 3);
+
+        // Smooth scroll
         const scrollY = -(ease * (totalHeight - singleHeight));
         reel.style.transform = `translateY(${scrollY}px)`;
 
         // Rapid shuffle for realism
-        if (elapsed % 50 < 20) {
+        if (elapsed % (50 + i*10) < 20) {
           const randomChild = Math.floor(Math.random() * reel.children.length);
           reel.children[randomChild].src = images[Math.floor(Math.random() * images.length)];
         }
@@ -75,11 +82,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (progress < 1) {
           requestAnimationFrame(animate);
         } else {
-          // Lock final image
+          // Lock the final unique image
           reel.innerHTML = "";
           const img = document.createElement("img");
-          img.src = images[finalIndex];
+          img.src = finalImage;
           reel.appendChild(img);
+
           reel.style.transform = "translateY(0)";
           reel.classList.remove("spinning");
 
@@ -98,4 +106,3 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeReels();
 
 });
-
