@@ -3,14 +3,16 @@
   justify-content: center;
   align-items: center;
   margin: 20px 0;
+  gap: 10px;
 }
 
 #slot-machine img {
   width: 100px;
   height: 100px;
-  object-fit: contain;
-  object-position: center;
-  border: 1px solid #ccc;
+  object-fit: contain;      /* scale images to fit without zoom */
+  object-position: center;  /* center the image */
+  border: 1px solid #ccc;  /* optional visual border */
+  background-color: white;  /* ensures empty areas are visible */
 }
 
 #result {
@@ -29,13 +31,18 @@
 
 /* optional spinning animation */
 @keyframes reel-shake {
-  0% { transform: translateY(0px); }
+  0% { transform: translateY(0); }
   25% { transform: translateY(-5px); }
   50% { transform: translateY(5px); }
   75% { transform: translateY(-3px); }
-  100% { transform: translateY(0px); }
+  100% { transform: translateY(0); }
 }
 
 .spinning {
   animation: reel-shake 0.1s infinite;
 }
+
+.spinning {
+  animation: reel-shake 0.1s infinite;
+}
+
