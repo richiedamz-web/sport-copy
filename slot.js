@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "images/jesuisassezsportif.jpg","images/jesuisassezsportive.jpg",
     "images/jesuistressportif.jpg","images/jesuistressportive.jpg",
     "images/petanque.jpg","images/pingpong.jpg","images/rugby.jpg",
-    "images/tennis.jpg","images/volleyball.jpg","images/wii.jpg",
+    "images/tennisnew.jpg","images/volleyball.jpg","images/wii.jpg",
     "images/tuessportif.jpg","images/tuessportive.jpg"
   ];
 
@@ -106,3 +106,4 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeReels();
 
 });
+
