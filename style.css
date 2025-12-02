@@ -38,13 +38,13 @@
 }
 
 .spinning {
-  animation: wobble 0.15s infinite linear;
+  animation: wobble 0.12s infinite linear;
 }
 
 @keyframes wobble {
   0% { transform: rotate(0deg); }
-  25% { transform: rotate(2deg); }
+  25% { transform: rotate(3deg); }   /* increased from 2deg */
   50% { transform: rotate(0deg); }
-  75% { transform: rotate(-2deg); }
+  75% { transform: rotate(-3deg); }  /* increased from 2deg */
   100% { transform: rotate(0deg); }
 }
