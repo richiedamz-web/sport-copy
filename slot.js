@@ -20,7 +20,7 @@ const reels = [
 const spinBtn = document.getElementById("spinBtn");
 const result = document.getElementById("result");
 
-// Initialize reels with stacked images
+// ---------- INITIALISE STACKS ----------
 function initializeReels() {
   reels.forEach(reel => {
     reel.innerHTML = "";
@@ -33,31 +33,43 @@ function initializeReels() {
   result.textContent = "Cliquez sur 'Spin' pour commencer!";
 }
 
-// Spin function
+window.addEventListener("DOMContentLoaded", initializeReels);
+
+// ---------- THE SPIN FUNCTION ----------
 function spinReels() {
   spinBtn.disabled = true;
   result.textContent = "Ça tourne!... 🎰";
 
   reels.forEach((reel, i) => {
-    const totalHeight = reel.scrollHeight;
-    const duration = 2000 + i * 400; // staggered stop
+
+    // RANDOM RESULT
+    const finalIndex = Math.floor(Math.random() * images.length);
+    const finalOffset = -finalIndex * 100;  // image height is 100px
+
+    // ANIMATION TIMING
+    const duration = 2000 + i * 400;
     const startTime = performance.now();
-    const startTop = 0;
-    const endTop = -(totalHeight - 100); // stop at bottom
 
     function animate(now) {
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // Ease out for realistic stop
       const ease = 1 - Math.pow(1 - progress, 3);
 
-      reel.style.transform = `translateY(${startTop + ease * endTop}px)`;
+      // slide full reel for effect, but end on random offset
+      const spinDistance = -(reel.scrollHeight - 100);
+      const current = progress < 1
+        ? spinDistance * ease
+        : finalOffset;
+
+      reel.style.transform = `translateY(${current}px)`;
 
       if (progress < 1) {
         requestAnimationFrame(animate);
       } else {
-        // Reset position for next spin
-        reel.style.transform = `translateY(0px)`;
+        // ADD WOBBLE
+        reel.classList.add("wobble");
+        setTimeout(() => reel.classList.remove("wobble"), 300);
+
         if (i === reels.length - 1) {
           spinBtn.disabled = false;
           result.textContent = "Voici tes images!";
@@ -70,4 +82,3 @@ function spinReels() {
 }
 
 spinBtn.addEventListener("click", spinReels);
-window.addEventListener("DOMContentLoaded", initializeReels);
