@@ -31,59 +31,52 @@ document.addEventListener("DOMContentLoaded", () => {
   function initializeReels() {
     reels.forEach(reel => {
       reel.innerHTML = "";
-      images.forEach(src => {
+      for (let i = 0; i < images.length * 2; i++) {
         const img = document.createElement("img");
-        img.src = src;
+        img.src = images[i % images.length];
         reel.appendChild(img);
-      });
+      }
     });
     result.textContent = "Cliquez sur 'Spin' pour commencer!";
   }
 
-  // Spin animation
+  // Spin animation with smooth scroll illusion
   function spinReels() {
     spinBtn.disabled = true;
     result.textContent = "Ça tourne!... 🎰";
 
     reels.forEach((reel, i) => {
+      const singleHeight = 100;
+      const totalHeight = reel.scrollHeight;
+      const finalIndex = Math.floor(Math.random() * images.length);
+      const startTime = performance.now();
+      const duration = 2000 + i * 400; // staggered stop
 
-      // wobble effect
       reel.classList.add("spinning");
 
-      const totalHeight = reel.scrollHeight;
-      const duration = 2000 + i * 400;
-      const start = performance.now();
-
-      // choose random end image
-      const finalIndex = Math.floor(Math.random() * images.length);
-
       function animate(now) {
-        const elapsed = now - start;
+        const elapsed = now - startTime;
         const progress = Math.min(elapsed / duration, 1);
-
-        // easing
         const ease = 1 - Math.pow(1 - progress, 3);
 
-     // scroll through stack
-const y = -(ease * (totalHeight - 100));
-reel.style.transform = `translateY(${y}px)`;
+        // Smooth scrolling effect
+        const scrollY = -(ease * (totalHeight - singleHeight));
+        reel.style.transform = `translateY(${scrollY}px)`;
 
-// ➜ NEW PART: swap displayed images during spin
-if (elapsed % 80 < 20) {
-  const randomIndex = Math.floor(Math.random() * images.length);
-  // Replace the TOP visible image very rapidly
-  reel.children[0].src = images[randomIndex];
-}
+        // Rapid shuffle for realism
+        if (elapsed % 50 < 20) {
+          const randomChild = Math.floor(Math.random() * reel.children.length);
+          reel.children[randomChild].src = images[Math.floor(Math.random() * images.length)];
+        }
 
         if (progress < 1) {
           requestAnimationFrame(animate);
         } else {
-          // stop reel — show correct final image:
-          reel.innerHTML = "";  
+          // Lock final image
+          reel.innerHTML = "";
           const img = document.createElement("img");
           img.src = images[finalIndex];
           reel.appendChild(img);
-
           reel.style.transform = "translateY(0)";
           reel.classList.remove("spinning");
 
@@ -102,4 +95,3 @@ if (elapsed % 80 < 20) {
   initializeReels();
 
 });
-
