@@ -2,14 +2,30 @@ function getCacheBustedUrl(url) {
   return url + "?v=" + new Date().getTime();
 }
 
+// Array of all images in your "images/" folder
 const images = [
-  "amies.jpg", "amis.jpg", "basket.jpg", "billiards.jpg", 
-  "boules.jpg", "foot.jpg", "hockey.jpg", "jadorelesport.jpg",
-  "jenesuispassportif.jpg", "jenesuispassportive.jpg",
-  "jesuisassezsportif.jpg", "jesuisassezsportive.jpg",
-  "jesuistressportif.jpg", "jesuistressportive.jpg",
-  "petanque.jpg", "pingpong.jpg", "rugby.jpg", "tennis.jpg",
-  "volleyball.jpg", "wii.jpg", "tuessportif.jpg", "tuessportive.jpg"
+  "images/amies.jpg",
+  "images/amis.jpg",
+  "images/basket.jpg",
+  "images/billiards.jpg",
+  "images/boules.jpg",
+  "images/foot.jpg",
+  "images/hockey.jpg",
+  "images/jadorelesport.jpg",
+  "images/jenesuispassportif.jpg",
+  "images/jenesuispassportive.jpg",
+  "images/jesuisassezsportif.jpg",
+  "images/jesuisassezsportive.jpg",
+  "images/jesuistressportif.jpg",
+  "images/jesuistressportive.jpg",
+  "images/petanque.jpg",
+  "images/pingpong.jpg",
+  "images/rugby.jpg",
+  "images/tennis.jpg",
+  "images/volleyball.jpg",
+  "images/wii.jpg",
+  "images/tuessportif.jpg",
+  "images/tuessportive.jpg"
 ];
 
 const reels = [
@@ -23,7 +39,7 @@ const reels = [
 const spinBtn = document.getElementById("spinBtn");
 const result = document.getElementById("result");
 
-// Enable button after DOM is loaded
+// Enable button and initialize reels when DOM is ready
 window.addEventListener("DOMContentLoaded", () => {
   spinBtn.disabled = false;
   initializeReels();
@@ -34,9 +50,10 @@ function initializeReels() {
     const rand = Math.floor(Math.random() * images.length);
     reel.src = getCacheBustedUrl(images[rand]);
   });
-  result.textContent = "Ça tourne!... 🎰";
+  result.textContent = "Cliquez sur 'Spin' pour commencer!";
 }
 
+// Spin function
 function spinReels() {
   spinBtn.disabled = true;
   result.textContent = "Ça tourne!... 🎰";
@@ -53,7 +70,6 @@ function spinReels() {
       if (elapsed < duration) {
         requestAnimationFrame(animate);
       } else {
-        // final symbol
         const finalIndex = Math.floor(Math.random() * images.length);
         reel.src = getCacheBustedUrl(images[finalIndex]);
 
