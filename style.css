@@ -10,20 +10,7 @@
   height: 100px;
   object-fit: contain;
   object-position: center;
-  border: 1px solid #ccc; /* optional, helps visualize */
-}
-
-.special-img {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-}
-
-#slot-machine img.special-img {
-  width: 100px;
-  height: 100px;
-  object-fit: contain; /* show the whole image for this one */
-  background-color: white; /* optional border effect */
+  border: 1px solid #ccc;
 }
 
 #result {
@@ -40,31 +27,15 @@
   cursor: pointer;
 }
 
-/* Spinning animation */
+/* optional spinning animation */
 @keyframes reel-shake {
-  0%   { transform: translateY(0px); }
-  25%  { transform: translateY(-5px); }
-  50%  { transform: translateY(5px); }
-  75%  { transform: translateY(-3px); }
+  0% { transform: translateY(0px); }
+  25% { transform: translateY(-5px); }
+  50% { transform: translateY(5px); }
+  75% { transform: translateY(-3px); }
   100% { transform: translateY(0px); }
 }
 
 .spinning {
   animation: reel-shake 0.1s infinite;
 }
-
-.stopping {
-  animation: stop-bounce 0.2s ease-out;
-}
-
-@keyframes stop-bounce {
-  0%   { transform: scaleY(1); }
-  50%  { transform: scaleY(0.9); }
-  100% { transform: scaleY(1); }
-}
-}
-
-
-
-
-
