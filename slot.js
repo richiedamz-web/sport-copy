@@ -2,30 +2,16 @@ function getCacheBustedUrl(url) {
   return url + "?v=" + new Date().getTime();
 }
 
-// Array of all images in your "images/" folder
+// All images inside 'images/' folder
 const images = [
-  "images/amies.jpg",
-  "images/amis.jpg",
-  "images/basket.jpg",
-  "images/billiards.jpg",
-  "images/boules.jpg",
-  "images/foot.jpg",
-  "images/hockey.jpg",
-  "images/jadorelesport.jpg",
-  "images/jenesuispassportif.jpg",
-  "images/jenesuispassportive.jpg",
-  "images/jesuisassezsportif.jpg",
-  "images/jesuisassezsportive.jpg",
-  "images/jesuistressportif.jpg",
-  "images/jesuistressportive.jpg",
-  "images/petanque.jpg",
-  "images/pingpong.jpg",
-  "images/rugby.jpg",
-  "images/tennis.jpg",
-  "images/volleyball.jpg",
-  "images/wii.jpg",
-  "images/tuessportif.jpg",
-  "images/tuessportive.jpg"
+  "images/amies.jpg","images/amis.jpg","images/basket.jpg","images/billiards.jpg",
+  "images/boules.jpg","images/foot.jpg","images/hockey.jpg","images/jadorelesport.jpg",
+  "images/jenesuispassportif.jpg","images/jenesuispassportive.jpg",
+  "images/jesuisassezsportif.jpg","images/jesuisassezsportive.jpg",
+  "images/jesuistressportif.jpg","images/jesuistressportive.jpg",
+  "images/petanque.jpg","images/pingpong.jpg","images/rugby.jpg",
+  "images/tennis.jpg","images/volleyball.jpg","images/wii.jpg",
+  "images/tuessportif.jpg","images/tuessportive.jpg"
 ];
 
 const reels = [
@@ -39,7 +25,6 @@ const reels = [
 const spinBtn = document.getElementById("spinBtn");
 const result = document.getElementById("result");
 
-// Enable button and initialize reels when DOM is ready
 window.addEventListener("DOMContentLoaded", () => {
   spinBtn.disabled = false;
   initializeReels();
@@ -53,7 +38,6 @@ function initializeReels() {
   result.textContent = "Cliquez sur 'Spin' pour commencer!";
 }
 
-// Spin function
 function spinReels() {
   spinBtn.disabled = true;
   result.textContent = "Ça tourne!... 🎰";
@@ -85,3 +69,4 @@ function spinReels() {
 }
 
 spinBtn.addEventListener("click", spinReels);
+
