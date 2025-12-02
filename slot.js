@@ -64,9 +64,16 @@ document.addEventListener("DOMContentLoaded", () => {
         // easing
         const ease = 1 - Math.pow(1 - progress, 3);
 
-        // scroll through stack
-        const y = -(ease * (totalHeight - 100));
-        reel.style.transform = `translateY(${y}px)`;
+     // scroll through stack
+const y = -(ease * (totalHeight - 100));
+reel.style.transform = `translateY(${y}px)`;
+
+// ➜ NEW PART: swap displayed images during spin
+if (elapsed % 80 < 20) {
+  const randomIndex = Math.floor(Math.random() * images.length);
+  // Replace the TOP visible image very rapidly
+  reel.children[0].src = images[randomIndex];
+}
 
         if (progress < 1) {
           requestAnimationFrame(animate);
@@ -95,3 +102,4 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeReels();
 
 });
+
