@@ -2,14 +2,15 @@ function getCacheBustedUrl(url) {
   return url + "?v=" + new Date().getTime();
 }
 
-// Symbol list (use the actual filenames of your new sharp images)
-const images = ["amies.jpg", "amis.jpg", "basket.jpg", "billiards.jpg", 
-                "boules.jpg", "foot.jpg", "hockey.jpg", "jadorelesport.jpg",
-                "jenesuispassportif.jpg", "jenesuispassportive.jpg",
-                "jesuisassezsportif.jpg", "jesuisassezsportive.jpg",
-                "jesuistressportif.jpg", "jesuistressportive.jpg",
-                "petanque.jpg", "pingpong.jpg", "rugby.jpg", "tennis.jpg",
-                "volleyball.jpg", "wii.jpg", "tuessportif.jpg", "tuessportive.jpg"];
+const images = [
+  "amies.jpg", "amis.jpg", "basket.jpg", "billiards.jpg", 
+  "boules.jpg", "foot.jpg", "hockey.jpg", "jadorelesport.jpg",
+  "jenesuispassportif.jpg", "jenesuispassportive.jpg",
+  "jesuisassezsportif.jpg", "jesuisassezsportive.jpg",
+  "jesuistressportif.jpg", "jesuistressportive.jpg",
+  "petanque.jpg", "pingpong.jpg", "rugby.jpg", "tennis.jpg",
+  "volleyball.jpg", "wii.jpg", "tuessportif.jpg", "tuessportive.jpg"
+];
 
 const reels = [
   document.getElementById("reel1"),
@@ -20,105 +21,51 @@ const reels = [
 ];
 
 const spinBtn = document.getElementById("spinBtn");
+const result = document.getElementById("result");
 
-// Enable button after page loads
-window.addEventListener('load', () => {
+// Enable button after DOM is loaded
+window.addEventListener("DOMContentLoaded", () => {
   spinBtn.disabled = false;
+  initializeReels();
 });
 
-function spinReels() {
-  reels.forEach(reel => {
-    const randIndex = Math.floor(Math.random() * images.length);
-    reel.src = images[randIndex];
-  });
-}
-
-// Initialize reels on page load
 function initializeReels() {
-  for (var i = 1; i <= 5; i++) {
-    var reel = document.getElementById("reel" + i);
-    if (reel) {
-      // Pick a random symbol and add a cache-buster
-      reel.src = getCacheBustedUrl(symbols[Math.floor(Math.random() * symbols.length)]);
-    }
-  }
-
-  var spinBtn = document.getElementById("spinBtn");
-  if (spinBtn) {
-    spinBtn.disabled = false;
-    spinBtn.addEventListener("click", spin);
-  }
-}
-
-// Spin function
-function spinReels() {
   reels.forEach(reel => {
-    const randIndex = Math.floor(Math.random() * images.length);
-    reel.src = images[randIndex];
+    const rand = Math.floor(Math.random() * images.length);
+    reel.src = getCacheBustedUrl(images[rand]);
   });
+  result.textContent = "Ça tourne!... 🎰";
 }
 
-spinBtn.addEventListener('click', spinReels);
+function spinReels() {
+  spinBtn.disabled = true;
+  result.textContent = "Ça tourne!... 🎰";
 
-  var availableSymbols = symbols.slice();
-  var reels = [];
-  var result = document.getElementById("result");
-  var spinBtn = document.getElementById("spinBtn");
-  if (spinBtn) spinBtn.disabled = true;
-  if (result) result.textContent = "Ça tourne!... 🎰";
+  reels.forEach((reel, i) => {
+    const duration = 1500 + i * 400; // staggered spin
+    const start = performance.now();
 
-  for (var n = 1; n <= 5; n++) {
-    (function(n) {
-      var reel = document.getElementById("reel" + n);
-      if (!reel) return;
+    function animate(now) {
+      const elapsed = now - start;
+      const rand = Math.floor(Math.random() * images.length);
+      reel.src = getCacheBustedUrl(images[rand]);
 
-      reel.classList.add("spinning");
-      var duration = 2000 + (n - 1) * 500;
-      var startTime = performance.now();
+      if (elapsed < duration) {
+        requestAnimationFrame(animate);
+      } else {
+        // final symbol
+        const finalIndex = Math.floor(Math.random() * images.length);
+        reel.src = getCacheBustedUrl(images[finalIndex]);
 
-      function animate(now) {
-        var elapsed = now - startTime;
-        var speed = Math.max(60, 300 - (elapsed / duration) * 300);
-
-        // Spinning: pick random symbol with cache-buster
-        reel.src = getCacheBustedUrl(symbols[Math.floor(Math.random() * symbols.length)]);
-
-        if (elapsed < duration) {
-          setTimeout(function() { requestAnimationFrame(animate); }, speed);
-        } else {
-          var index = Math.floor(Math.random() * availableSymbols.length);
-          var finalChoice = availableSymbols.splice(index, 1)[0];
-          reel.src = getCacheBustedUrl(finalChoice); // Final symbol with cache-buster
-          reel.classList.remove("spinning");
-          reel.classList.add("stopping");
-          setTimeout(function() { reel.classList.remove("stopping"); }, 400);
-
-          reels[n - 1] = finalChoice;
-
-          if (n === 5) {
-            if (reels.every(function(r) { return r === reels[0]; })) {
-              if (result) result.textContent = "🎉 Jackpot! You got 5 in a row!";
-            } else {
-              if (result) result.textContent = "Voici tes images!";
-            }
-            if (spinBtn) spinBtn.disabled = false;
-          }
+        if (i === reels.length - 1) {
+          spinBtn.disabled = false;
+          result.textContent = "Voici tes images!";
         }
       }
+    }
 
-      requestAnimationFrame(animate);
-    })(n);
-  }
+    requestAnimationFrame(animate);
+  });
 }
 
-// Run on page load
-window.addEventListener("DOMContentLoaded", initializeReels);
-
-
-
-
-
-
-
-
-
+spinBtn.addEventListener("click", spinReels);
