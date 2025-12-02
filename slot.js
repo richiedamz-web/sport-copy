@@ -1,52 +1,78 @@
-document.getElementById('spinButton').addEventListener('click', spin);
-
-const reelElements = [
-  document.getElementById('reel1'),
-  document.getElementById('reel2'),
-  document.getElementById('reel3')
-];
-
 const images = [
-  'images/football.png',
-  'images/basketball.png',
-  'images/tennis.png',
-  'images/rugby.png',
-  'images/swimming.png'
+  "images/amies.jpg","images/amis.jpg","images/basket.jpg","images/billiards.jpg",
+  "images/boules.jpg","images/foot.jpg","images/hockey.jpg","images/jadorelesport.jpg",
+  "images/jenesuispassportif.jpg","images/jenesuispassportive.jpg",
+  "images/jesuisassezsportif.jpg","images/jesuisassezsportive.jpg",
+  "images/jesuistressportif.jpg","images/jesuistressportive.jpg",
+  "images/petanque.jpg","images/pingpong.jpg","images/rugby.jpg",
+  "images/tennis.jpg","images/volleyball.jpg","images/wii.jpg",
+  "images/tuessportif.jpg","images/tuessportive.jpg"
 ];
 
-// store the shuffle intervals
-let shuffleIntervals = [];
+const reels = [
+  document.getElementById("reel1"),
+  document.getElementById("reel2"),
+  document.getElementById("reel3"),
+  document.getElementById("reel4"),
+  document.getElementById("reel5")
+];
 
-function spin() {
-  document.getElementById('spinButton').disabled = true;
+const spinBtn = document.getElementById("spinBtn");
+const result = document.getElementById("result");
 
-  // Add wobble animation
-  reelElements.forEach(reel => reel.classList.add('spinning'));
-
-  // Start fast shuffle immediately
-  reelElements.forEach((reel, index) => {
-    shuffleIntervals[index] = setInterval(() => {
-      reel.src = images[Math.floor(Math.random() * images.length)];
-    }, 70); // speed of shuffle for realism
+// Populate stacks
+function initializeReels() {
+  reels.forEach(reel => {
+    reel.innerHTML = "";
+    images.forEach(src => {
+      const img = document.createElement("img");
+      img.src = src;
+      reel.appendChild(img);
+    });
   });
-
-  // Stop each reel with a staggered delay
-  stopReel(0, 1500);
-  stopReel(1, 2000);
-  stopReel(2, 2500);
+  result.textContent = "Cliquez sur 'Spin' pour commencer!";
 }
 
-function stopReel(reelIndex, delay) {
-  setTimeout(() => {
-    clearInterval(shuffleIntervals[reelIndex]); // stop the fast shuffle
+window.addEventListener("DOMContentLoaded", initializeReels);
 
-    const finalImage = images[Math.floor(Math.random() * images.length)];
-    reelElements[reelIndex].src = finalImage;
+function spinReels() {
+  spinBtn.disabled = true;
+  result.textContent = "Ça tourne!... 🎰";
 
-    reelElements[reelIndex].classList.remove('spinning');
+  reels.forEach((reel, i) => {
+    const finalIndex = Math.floor(Math.random() * images.length);
+    const singleHeight = 100;
+    const endY = - finalIndex * singleHeight;
 
-    if (reelIndex === 2) {
-      document.getElementById('spinButton').disabled = false;
+    const duration = 2000 + i * 400;
+    const start = performance.now();
+
+    function animate(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+
+      const totalScroll = -(reel.scrollHeight - singleHeight);
+      const currentY = progress < 1
+        ? totalScroll * ease
+        : endY;
+
+      reel.style.transform = `translateY(${currentY}px)`;
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        reel.classList.add("wobble");
+        setTimeout(() => reel.classList.remove("wobble"), 300);
+        if (i === reels.length - 1) {
+          spinBtn.disabled = false;
+          result.textContent = "Voici tes images!";
+        }
+      }
     }
-  }, delay);
+
+    requestAnimationFrame(animate);
+  });
 }
+
+spinBtn.addEventListener("click", spinReels);
