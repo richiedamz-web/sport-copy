@@ -6,12 +6,17 @@
 }
 
 #slot-machine img {
+  width: 100px;       /* or your preferred reel width */
+  height: 100px;      /* same height for all reels */
+  object-fit: contain; /* scale image to fit inside box without cropping */
+  object-position: center; /* center the image */
+  border: 1px solid #ccc; /* optional: helps see reel edges */
+}
+
+.special-img {
   width: 100px;
   height: 100px;
-  margin: 5px;
-  border: 2px solid #333;
-  border-radius: 8px;
-  object-fit: cover; /* default for most images */
+  object-fit: contain;
 }
 
 #slot-machine img.special-img {
@@ -58,6 +63,7 @@
   100% { transform: scaleY(1); }
 }
 }
+
 
 
 
