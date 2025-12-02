@@ -57,7 +57,10 @@ document.addEventListener("DOMContentLoaded", () => {
       function animate(now) {
         const elapsed = now - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        const ease = 1 - Math.pow(1 - progress, 3);
+       // Quick start, smooth stop
+            const ease = progress < 0.3 
+             ? 3 * Math.pow(progress, 2)       // faster initial surge
+             : 1 - Math.pow(1 - progress, 3); // smooth deceleration
 
         // Smooth scrolling effect
         const scrollY = -(ease * (totalHeight - singleHeight));
@@ -95,3 +98,4 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeReels();
 
 });
+
