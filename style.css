@@ -1,42 +1,38 @@
 #slot-machine {
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin: 20px 0;
   gap: 10px;
+  margin: 20px 0;
 }
 
-#slot-machine img {
+.reel-container {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+
+.reel {
+  display: flex;
+  flex-direction: column;
+}
+
+.reel img {
   width: 100px;
   height: 100px;
   object-fit: contain;
-  object-position: center;
-  border: 1px solid #ccc;
-  background-color: white;
+}
+
+#spinBtn {
+  display: block;
+  margin: 15px auto;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
 }
 
 #result {
   text-align: center;
   font-size: 1.2em;
   margin: 15px 0;
-}
-
-#spinBtn {
-  display: block;
-  margin: 0 auto;
-  padding: 10px 20px;
-  font-size: 1em;
-  cursor: pointer;
-}
-
-@keyframes reel-shake {
-  0% { transform: translateY(0); }
-  25% { transform: translateY(-5px); }
-  50% { transform: translateY(5px); }
-  75% { transform: translateY(-3px); }
-  100% { transform: translateY(0); }
-}
-
-.spinning {
-  animation: reel-shake 0.1s infinite;
 }
