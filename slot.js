@@ -20,7 +20,7 @@ const reels = [
 const spinBtn = document.getElementById("spinBtn");
 const result = document.getElementById("result");
 
-// ---------- INITIALISE STACKS ----------
+// Populate each reel with stacked images
 function initializeReels() {
   reels.forEach(reel => {
     reel.innerHTML = "";
@@ -35,38 +35,39 @@ function initializeReels() {
 
 window.addEventListener("DOMContentLoaded", initializeReels);
 
-// ---------- THE SPIN FUNCTION ----------
+
 function spinReels() {
   spinBtn.disabled = true;
   result.textContent = "Ça tourne!... 🎰";
 
   reels.forEach((reel, i) => {
-
-    // RANDOM RESULT
+    // Determine *this reel’s* random outcome before spinning
     const finalIndex = Math.floor(Math.random() * images.length);
-    const finalOffset = -finalIndex * 100;  // image height is 100px
 
-    // ANIMATION TIMING
-    const duration = 2000 + i * 400;
-    const startTime = performance.now();
+    const totalHeight = reel.scrollHeight;
+    const singleImageHeight = 100; // as per your CSS
+    const endOffset = - finalIndex * singleImageHeight;
+
+    const duration = 2000 + i * 400; // staggered stops
+    const start = performance.now();
 
     function animate(now) {
-      const elapsed = now - startTime;
+      const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
       const ease = 1 - Math.pow(1 - progress, 3);
 
-      // slide full reel for effect, but end on random offset
-      const spinDistance = -(reel.scrollHeight - 100);
-      const current = progress < 1
-        ? spinDistance * ease
-        : finalOffset;
+      // Interpolate from full spin to final offset
+      const spinDistance = -(totalHeight - singleImageHeight);
+      const currentY = progress < 1
+        ? spinDistance * ease + Math.random()*20  // slight randomness for realism
+        : endOffset;
 
-      reel.style.transform = `translateY(${current}px)`;
+      reel.style.transform = `translateY(${currentY}px)`;
 
       if (progress < 1) {
         requestAnimationFrame(animate);
       } else {
-        // ADD WOBBLE
+        // Optional wobble / bounce effect
         reel.classList.add("wobble");
         setTimeout(() => reel.classList.remove("wobble"), 300);
 
