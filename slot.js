@@ -51,12 +51,14 @@ function initializeReels() {
 }
 
 // Spin function
-function spin() {
-  if (symbols.length < 5) {
-    var result = document.getElementById("result");
-    if (result) result.textContent = "Not enough symbols!";
-    return;
-  }
+function spinReels() {
+  reels.forEach(reel => {
+    const randIndex = Math.floor(Math.random() * images.length);
+    reel.src = images[randIndex];
+  });
+}
+
+spinBtn.addEventListener('click', spinReels);
 
   var availableSymbols = symbols.slice();
   var reels = [];
@@ -111,6 +113,7 @@ function spin() {
 
 // Run on page load
 window.addEventListener("DOMContentLoaded", initializeReels);
+
 
 
 
